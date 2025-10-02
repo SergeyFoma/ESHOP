@@ -1,0 +1,7 @@
+pip list
+django-admin
+python manage.py
+
+подключение venv через manage.py 31-20
+
+PS C:\Users\Fomenko.SM\Eshop> Set-ExecutionPolicy -Scope CurrentUser
