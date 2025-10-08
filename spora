@@ -5,3 +5,10 @@ python manage.py
 подключение venv через manage.py 31-20
 
 PS C:\Users\Fomenko.SM\Eshop> Set-ExecutionPolicy -Scope CurrentUser
+
+-----------settings.py---------------
+STATIC_URL = 'static/' #префикс
+STATICFILES_DIRS=[         #путь
+    BASE_DIR / 'static'
+]
+STATIC_ROOT #нужен для деплоя
