@@ -117,15 +117,19 @@
                         <ul class="pagination justify-content-center my-4">
                             <div class="custom-shadow d-flex">
                                 <li class="page-item {% if not goods.has_previous %}disabled{% endif %}">
-                                  <a class="page-link"href="{% if goods.has_previous %}
+                                  <a class="page-link"href="{% if goods.has_previous %}?page={{goods.previous_page_number}}
+                                  {% comment %}
                                     {% url 'goods:catalog' slug_url goods.previous_page_number %}
+                                  {% endcomment %}
+                                  
                                     {% else %}#{% endif %}">Назад</a>
                                 </li>
 
                                 {% for page in goods.paginator.page_range %}
                                     {% if page >= goods.number|add:-2 and page <= goods.number|add:2 %}
                                         <li class="page-item {% if goods.number == page %}active{% endif %}">
-                                            <a class="page-link" href="{% url "goods:catalog" slug_url page %}">{{page}}</a>
+                                            {% comment %}<a class="page-link" href="{% url "goods:catalog" slug_url page %}">{{page}}</a>{% endcomment %}
+                                            <a class="page-link" href="?page={{page}}">{{page}}</a>
                                         </li>
                                     {% endif %}
                                     
@@ -133,8 +137,8 @@
                                 
                                 
                                 <li class="page-item {% if not goods.has_next %}disabled{% endif %}">
-                                  <a class="page-link"href="{% if goods.has_next %}
-                                    {% url 'goods:catalog' slug_url goods.next_page_number %}
+                                  <a class="page-link"href="{% if goods.has_next %}?page={{goods.next_page_number}}
+                                    {% comment %}{% url 'goods:catalog' slug_url goods.next_page_number %}{% endcomment %}
                                     {% else %}#{% endif %}">Следующая</a>
                                 </li>
                             </div>
