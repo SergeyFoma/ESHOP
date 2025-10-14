@@ -1,0 +1,3 @@
+{% for c in categ %}
+    <p><a href="{% url "goods:catalog2" cat_slug=c.slug %}">{{c.name}}</a></p>
+{% endfor %}

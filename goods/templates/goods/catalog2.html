@@ -1,0 +1,43 @@
+<div>
+    Filter
+    <form action="{% url 'goods:catalog2' %}"method="get">
+        <input type="checkbox"id="on_sale"name="on_sale"value="on"{% if request.GET.on_sale == "on" %}checked{%endif%}>
+        <label for="on_sale">Товары по акции</label>
+
+        <input type="radio"id="order"name="order_by"value="price"{% if request.GET.order_by == "price" %}checked{%endif%}>
+        <label for="order">От дешёвых к дорогим</label>
+
+        <input type="radio"id="order1"name="order_by"value="-price"{% if request.GET.order_by == "-price" %}checked{%endif%}>
+        <label for="order1">От дорогих к дешёвым</label>
+
+        <input type="checkbox"id="quant"name="quantity"value="col"{% if request.GET.quantity == "col" %}checked{%endif%}>
+        <label for="quant">По количеству</label>
+
+        <button type="submit">Применить</button>
+    </form>
+</div>
+
+{% if request.GET.on_sale == 'on' %}
+   
+    {% for prod in product %}
+        <p>on_sale=={{prod}}шт.-{{prod.price}}$-{{prod.discount}}---{{prod.quantity}}%</p>
+    {% endfor %}
+   
+
+{% elif request.GET.order_by == 'price' %}
+    {% for prod in product %}
+        <p>order_by==={{prod}}шт.-{{prod.price}}$-{{prod.discount}}%---{{prod.quantity}}</p>
+    {% endfor %}
+
+{% elif request.GET.quantity == 'col' %}
+    {% for prod in product %}
+        <p>order_by==={{prod}}шт.-{{prod.price}}$-{{prod.discount}}%---{{prod.quantity}}</p>
+    {% endfor %}
+    
+
+{% else %}
+    {% for prod in product %}
+        <p>{{prod}}шт.-{{prod.price}}$-{{prod.discount}}%---{{prod.quantity}}</p>
+    {% endfor %}
+
+{% endif %}
