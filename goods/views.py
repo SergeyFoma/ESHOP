@@ -3,17 +3,24 @@ from goods.models import Products
 from django.shortcuts import get_list_or_404
 
 from django.core.paginator import Paginator
+from goods.utils import q_search
 
 
 # def catalog(request, category_slug, page=1):
-def catalog(request, category_slug):
+def catalog(request, category_slug=None):
 
     page = request.GET.get("page", 1)
     on_sale = request.GET.get("on_sale", None)  # Товары по акции
-    order_by = request.GET.get("order_by", None)  # От дешевых к дорогим От дорогих к дешевым
+    order_by = request.GET.get(
+        "order_by", None
+    )  # От дешевых к дорогим От дорогих к дешевым
+    query = request.GET.get("q", None)
 
     if category_slug == "all":
         goods = Products.objects.all()
+    elif query:
+        goods = q_search(query)
+
     else:
         goods = get_list_or_404(Products.objects.filter(category__slug=category_slug))
 
@@ -47,3 +54,10 @@ def product(request, product_slug):
     product = Products.objects.get(slug=product_slug)
     context = {"product": product}
     return render(request, "goods/product.html", context)
+
+
+def catalog2(request):
+    context = {
+
+    }
+    return render(request, "goods/catalog2.html", context)

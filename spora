@@ -12,3 +12,9 @@ STATICFILES_DIRS=[         #путь
     BASE_DIR / 'static'
 ]
 STATIC_ROOT #нужен для деплоя
+
+___________________________
+python manage.py debugsqlshell
+
+______________Q________________
+x = Products.objects.filter(Q(name__contains="диван")|Q(description__contains="диван"))

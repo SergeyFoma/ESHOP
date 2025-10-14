@@ -11,7 +11,7 @@
             Фильтры
         </button>
 
-        <form action="{% if request.GET.q %}{% url "goods:search" %}{% endif %}" method="get" class="dropdown-menu bg-dark" data-bs-theme="dark">
+        <form action="{% if request.GET.q %}{% url "goods:search" %}{% else %}{% url "goods:catalog" slug_url %}{% endif %}" method="get" class="dropdown-menu bg-dark" data-bs-theme="dark">
             <div class="form-check text-white mx-3">
                 <input class="form-check-input" type="checkbox" name="on_sale" id="flexCheckDefault" value="on" {% if request.GET.on_sale == 'on' %}checked{% endif %}>
                 {% if request.GET.q %}
@@ -50,7 +50,7 @@
     {% if request.GET.q %}
     <h3 class="mt-4">Результаты поиска по запросу {{ request.GET.q }}</h3>
     {% if not goods %}
-        <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
+        <link rel="stylesheet" href="{% static "main/css/my_footer_css.css" %}">
         <h2 class="mt-4">По запросу ничего не найдено</h2>
     {% endif %}
     {% endif %}
