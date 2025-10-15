@@ -68,24 +68,39 @@ def home(request):
     return render(request, "goods/home.html", context)
 
 
-def catalog2(request):
+def catalog2(request, cat_slug=None):
 
-    product = Products.objects.all()
-
+    #query = request.GET.get('q')
+    page = request.GET.get("page", 1)
     on_sale = request.GET.get("on_sale", None)
-    order_by = request.GET.get("order_by", None)
-    quantity = request.GET.get("quantity", None)
+    order_by =request.GET.get("order_by", None)
+
+    if cat_slug == 'all':
+        goods = Products.objects.all().order_by("id")
+    else:
+        goods = Products.objects.filter(category__slug=cat_slug)
+
 
     if on_sale:
-        product = product.filter(discount__gt=0)
+        goods=goods.filter(discount__gt=0)
     if order_by:
-        product = product.order_by(order_by)
-    if quantity:
-        product = product.filter(quantity__gt=3)
+        goods=goods.order_by(order_by)
+    # if query:
+    #     query = request.GET.get('q')
+
+    paginator = Paginator(goods, 3)  
+
+    #page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page)
 
     context = {
-        "product": product,
+        #'goods':goods,
+        'goods':page_obj,
+        'slug_url':cat_slug,
+        #'p':p,
+        #'query':query,
     }
+    
     return render(request, "goods/catalog2.html", context)
 
 
