@@ -10,7 +10,7 @@ urlpatterns = [
     #path('product/<int:product_id>/', views.product, name="product"),
     path('product/<slug:product_slug>/', views.product, name="product"),
 
-    path('home/', views.home, name='home'),
-    path('catalog2/<slug:cat_slug>/', views.catalog2, name="catalog2"),
-    path('product2/<slug:product2_slug>/', views.product2, name="product2"),
+    # path('home/', views.home, name='home'),
+    # path('catalog2/<slug:cat_slug>/', views.catalog2, name="catalog2"),
+    # path('product2/<slug:product2_slug>/', views.product2, name="product2"),
 ]

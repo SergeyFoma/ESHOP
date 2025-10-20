@@ -1,3 +1,4 @@
+{% load goods_tags %}
 <div>
     Filter
     ==on_sale, discount, quantity==
@@ -39,10 +40,14 @@
             <a href="?page=1">&laquo; first</a>
             <a href="?page={{ goods.previous_page_number }}">previous</a>
         {% endif %}
+        {% for page in goods.paginator.page_range %}
+            <a class="page-link" href="?{% change_params page=page %}">{{page}}</a>
+        {% endfor %}
 
+        query----{{query}}
         <span class="current">
             {%comment%}Page {{ goods.number }} of {{ goods.paginator.num_pages }}.{%endcomment%}
-            {% for page in goods.paginator.page_range %}
+           {%comment%} {% for page in goods.paginator.page_range %}
                 {% if request.GET.on_sale == 'on' %}
                     <a href="?on_sale=on&page={{page}}">{{page}}</a>
                 {% elif request.GET.order_by == 'price' %}
@@ -52,7 +57,7 @@
                 {%else%}
                     <a href="?page={{page}}">{{page}}</a>
                 {% endif %}
-            {% endfor %}
+            {% endfor %}{%endcomment%}
         </span>
 
         {% if goods.has_next %}

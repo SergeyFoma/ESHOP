@@ -57,54 +57,54 @@ def product(request, product_slug):
     return render(request, "goods/product.html", context)
 
 
-from goods.models import Categories
+#from goods.models import Categories
 
 
-def home(request):
-    categ = Categories.objects.all()
-    context = {
-        "categ": categ,
-    }
-    return render(request, "goods/home.html", context)
+# def home(request):
+#     categ = Categories.objects.all()
+#     context = {
+#         "categ": categ,
+#     }
+#     return render(request, "goods/home.html", context)
 
 
-def catalog2(request, cat_slug=None):
+# def catalog2(request, cat_slug=None):
 
-    #query = request.GET.get('q')
-    page = request.GET.get("page", 1)
-    on_sale = request.GET.get("on_sale", None)
-    order_by =request.GET.get("order_by", None)
+#     query = request.GET.get('q')
+#     page = request.GET.get("page", 1)
+#     on_sale = request.GET.get("on_sale", None)
+#     order_by =request.GET.get("order_by", None)
 
-    if cat_slug == 'all':
-        goods = Products.objects.all().order_by("id")
-    else:
-        goods = Products.objects.filter(category__slug=cat_slug)
+#     if cat_slug == 'all':
+#         goods = Products.objects.all().order_by("id")
+#     else:
+#         goods = Products.objects.filter(category__slug=cat_slug)
 
 
-    if on_sale:
-        goods=goods.filter(discount__gt=0)
-    if order_by:
-        goods=goods.order_by(order_by)
-    # if query:
-    #     query = request.GET.get('q')
+#     if on_sale:
+#         goods=goods.filter(discount__gt=0)
+#     if order_by:
+#         goods=goods.order_by(order_by)
+#     # if query:
+#     #     query = request.GET.get('q')
 
-    paginator = Paginator(goods, 3)  
+#     paginator = Paginator(goods, 3)  
 
-    #page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page)
+#     #page_number = request.GET.get("page")
+#     page_obj = paginator.get_page(page)
 
-    context = {
-        #'goods':goods,
-        'goods':page_obj,
-        'slug_url':cat_slug,
-        #'p':p,
-        #'query':query,
-    }
+#     context = {
+#         #'goods':goods,
+#         'goods':page_obj,
+#         'slug_url':cat_slug,
+#         #'p':p,
+#         'query':query,
+#     }
     
-    return render(request, "goods/catalog2.html", context)
+#     return render(request, "goods/catalog2.html", context)
 
 
-def product2(request, product2_slug):
-    product = Products.objects.get(slug=product2_slug)
-    context = {"product": product}
-    return render(request, "goods/product2.html", context)
+# def product2(request, product2_slug):
+#     product = Products.objects.get(slug=product2_slug)
+#     context = {"product": product}
+#     return render(request, "goods/product2.html", context)
