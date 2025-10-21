@@ -22,7 +22,8 @@ def catalog(request, category_slug=None):
         goods = q_search(query)
 
     else:
-        goods = get_list_or_404(Products.objects.filter(category__slug=category_slug))
+        #goods = get_list_or_404(Products.objects.filter(category__slug=category_slug))
+        goods = Products.objects.filter(category__slug=category_slug)
 
     if on_sale:
         goods = goods.filter(discount__gt=0)
