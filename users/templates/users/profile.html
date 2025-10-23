@@ -11,7 +11,9 @@
             <!-- Профиль с данными пользователя -->
             <div class="col-md-5">
                 <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
+
                     <h3 class="text-center mb-4">Профиль пользователя</h3>
+
                     <form action="{% url "users:profile" %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="row">
@@ -79,7 +81,9 @@
                         </div>
                         <button type="submit" class="btn btn-dark">Сохранить</button>
                     </form>
+
                 </div>
+                
             </div>
             <!-- Корзина -->
             {%comment%}{% user_carts request as carts %}{%endcomment%}
