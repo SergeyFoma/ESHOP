@@ -1,7 +1,8 @@
 from django.contrib import auth
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 from users.forms import UserLoginForm, UserRegistrationForm
 
@@ -30,7 +31,9 @@ def registration(request):
         form = UserRegistrationForm(data = request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse("users:login"))
+            user = form.instance
+            auth.login(request, user)
+            return HttpResponseRedirect(reverse("main:index"))
     else:
         form = UserRegistrationForm()
     title = "Регистрация"
@@ -47,9 +50,8 @@ def profile(request):
     }
     return render(request, "users/profile.html", context)
 
+@login_required
 def logout(request):
-    title = "Выход"
-    context= {
-        "title":title,   
-    }
-    return render(request, "users/logout.html", context)
+    auth.logout(request)
+    return redirect(reverse("main:index"))
+   
