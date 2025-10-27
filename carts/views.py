@@ -1,10 +1,25 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+
+from carts.models import Cart
+from goods.models import Products
 
 def cart_add(request, product_slug):
-    context = {
+    product = Products.objects.get(slug=product_slug)
 
-    }
-    return render(request, "carts/cart_add.html", context)
+    if request.user.is_authenticated:
+        carts = Cart.objects.filter(user = request.user, product = product)
+        if carts.exists():
+            cart = carts.first()
+            if cart:
+                cart.quantity += 1
+                cart.save()
+        else:
+            Cart.objects.create(user = request.user, product = product, quantity = 1)
+    return redirect(request.META['HTTP_REFERER'])
+    # context = {
+
+    # }
+    # return render(request, "carts/cart_add.html", context)
 
 def cart_change(request, product_slug):
     context = {

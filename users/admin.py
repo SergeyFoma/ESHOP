@@ -4,4 +4,4 @@ from users.models import User
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['id', 'image']
+    list_display = ['id', 'image', 'phone_number', 'username']
