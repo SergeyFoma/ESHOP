@@ -27,8 +27,7 @@ def cart_change(request, product_slug):
     }
     return render(request, "carts/cart_change.html", context)
 
-def cart_remove(request, product_slug):
-    context = {
-
-    }
-    return render(request, "carts/cart_remove.html", context)
+def cart_remove(request, cart_id):
+    cart = Cart.objects.get(id = cart_id)
+    cart.delete()
+    return redirect(request.META['HTTP_REFERER'])
