@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
+from django.urls import reverse
 
 from carts.models import Cart
 from goods.models import Products
@@ -125,8 +126,8 @@ def cart_remove(request):
 
     # if referer page is create_order add key orders: True to context
     referer = request.META.get('HTTP_REFERER')
-    if reverse('orders:create_order') in referer:
-        context["order"] = True
+    # if reverse('orders:create_order') in referer:
+    #     context["order"] = True
 
     cart_items_html = render_to_string(
         "carts/includes/included_cart.html", context, request=request)
